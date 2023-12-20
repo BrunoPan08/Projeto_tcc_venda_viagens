@@ -36,6 +36,11 @@ export default {
             name: 'details',
             title: 'Details',
             type: 'string',
+        },
+        {
+            name: 'region',
+            title: 'Region',
+            type: 'string',
         }
     ]
 }
