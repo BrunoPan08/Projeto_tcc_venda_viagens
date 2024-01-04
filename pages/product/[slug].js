@@ -1,13 +1,17 @@
 import React, {useState} from 'react'
 import { client, urlFor } from '../../lib/client'
-import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar} from 'react-icons/ai'
-import {Product} from '../../components';
-import {useStateContext} from '../../context/stateContext'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { Product } from '../../components';
+import { useStateContext } from '../../context/stateContext';
 
 const ProductDetails = ({product, products}) => {
-  const { image, name , details, price } = product;
+  const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decreaseQty, increaseQty, qty, onAdd, setShowCart} = useStateContext();
+  const [departureDate, setDepartureDate] = useState(null);
+  const [arrivalDate, setArrivalDate] = useState(null);
+  const { decreaseQty, increaseQty, qty, onAdd, setShowCart } = useStateContext();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -55,21 +59,24 @@ const ProductDetails = ({product, products}) => {
               <span className='plus' onClick={increaseQty}><AiOutlinePlus/></span>
             </p>
           </div>
-          <div className='buttons'>
-            <button type='button' className='buy-now' onClick={handleBuyNow}>Comprar</button>
+          <div className="date-pickers">
+            <h3>Escolha as datas:</h3>
+            <div>
+              <p>Data de ida:</p>
+              <DatePicker selected={departureDate} onChange={(date) => setDepartureDate(date)} />
+            </div>
+            <div>
+              <p>Data de chegada:</p>
+              <DatePicker selected={arrivalDate} onChange={(date) => setArrivalDate(date)} />
+            </div>
+          </div>
+          <div className="buttons">
+            <button type="button" className="buy-now" onClick={handleBuyNow}>
+              Comprar
+            </button>
           </div>
         </div>
       </div>
-      {/* <div className='maylike-products-wrapper track'>
-        <h2>Lugares recomendados</h2>
-        <div className='marquee'>
-          <div className='maylike-products-container'>
-            {products.map((item) = (
-              <Product key={item._id} product={item}/>
-            ))}
-          </div>
-        </div>
-      </div> */}
     </div>
   )
 }
